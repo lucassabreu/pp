@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "firebase": "^7.24.0"
+  },
+  "scripts": {
+    "firebase": "firebase"
+  },
+  "devDependencies": {
+    "firebase-tools": "^8.13.1"
+  },
+  "name": "pp",
+  "version": "1.0.0",
+  "description": "A PWA do Play Podcasts",
+  "main": "public/index.html",
+  "repository": "git@github.com:lucassabreu/pp.git",
+  "author": "Lucas dos Santos Abreu <lucas.s.abreu@gmail.com>",
+  "license": "MIT",
+  "private": true
+}

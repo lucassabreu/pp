@@ -1,5 +1,7 @@
 import * as functions from 'firebase-functions';
 
+export scanRss = functions.https.onRequest(async (req,res) =>{})
+
 console.log(functions)
 
 // // Start writing Firebase Functions

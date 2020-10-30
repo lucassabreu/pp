@@ -1,5 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
   return (
@@ -18,6 +18,11 @@ function App() {
           Learn React
         </a>
       </header>
+
+      <audio controls>
+        <source src="https://nerdcast.jovemnerd.com.br/nerdcast_748_proxima_viagem.mp3" />
+        Your browser does not support the audio element.
+      </audio>
     </div>
   );
 }

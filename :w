@@ -1,0 +1,7 @@
+
+import yargs from 'yargs'
+
+export const command = "scan-rss [url]";
+export const desc = "Scan a RSS file to a JSON structure";
+
+export const builder = (yargs:yargs) => yargs.positional("url");

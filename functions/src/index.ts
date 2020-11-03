@@ -1,8 +1,7 @@
 import * as functions from 'firebase-functions';
+import {request as scanRssHandler} from './scanRss'
 
-export scanRss = functions.https.onRequest(async (req,res) =>{})
-
-console.log(functions)
+export const scanRss = functions.https.onRequest(scanRssHandler)
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript

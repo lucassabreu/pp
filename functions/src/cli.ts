@@ -3,10 +3,14 @@
 const command = process.argv[2] || "";
 const argv = process.argv.slice(3);
 
-console.log(process.argv)
+interface Command {
+  default(args: Array<string>): any;
+}
 
 try {
-  require("./cmds/".concat(command.split(" ").join("/")))(argv);
+  import("./cmds/".concat(command.split(" ").join("/")))
+    .then((command: Command) => command.default(argv))
+    .catch(console.error);
 } catch (e) {
   console.error(e);
 }

@@ -1,9 +1,6 @@
-// import { Argv } from "yargs";
+import * as http from "http";
+import * as https from "https";
 
-export default {
-  command: "scan-rss <url>",
-  desc: "Scan a RSS file to a JSON structure",
-
-  builder: (yargs: any) => yargs.positional("url"),
-  handler: () => console.log("noing?")
+export default ([url]: Array<string>) => {
+  const htt = url.startsWith("https") ? https : http;
 };

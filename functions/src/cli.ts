@@ -4,7 +4,7 @@ const command = process.argv[2] || "";
 const argv = process.argv.slice(3);
 
 interface Command {
-  default(args: Array<string>): any;
+  default(args: Array<string>): Promise<void>;
 }
 
 try {

@@ -1,6 +1,10 @@
-import * as http from "http";
-import * as https from "https";
+import fetch from "node-fetch";
+import { parse } from "fast-xml-parser";
 
-export default ([url]: Array<string>) => {
-  const htt = url.startsWith("https") ? https : http;
+export default async ([url]: Array<string>) => {
+  const response = await fetch(url);
+  const {
+    rss: { channel }
+  } = parse(await response.text());
+  console.log(JSON.stringify(channel));
 };

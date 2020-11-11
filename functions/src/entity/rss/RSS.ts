@@ -33,7 +33,9 @@ class RSS {
     this.description = channel.description || "";
     this.link = channel.link || "";
     this.image = (channel.image || {}).url || "";
-    this.items = (channel.item || []).map((i: object) => new Item(i));
+    this.items = (channel.item || [])
+      .map((i: XmlItem) => new Item(i))
+      .sort((a: Item, b: Item) => (a.pubDate < b.pubDate ? -1 : 1));
   }
 }
 

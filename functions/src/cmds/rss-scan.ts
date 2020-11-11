@@ -16,15 +16,17 @@ export default async ([url]: Array<string>) => {
     parseNodeValue: true,
     parseAttributeValue: false,
     trimValues: true,
-    cdataTagName: "__cdata", //default is 'false'
+    cdataTagName: "__cdata",
     cdataPositionChar: "\\c",
     parseTrueNumberOnly: false,
     arrayMode: false, //"strict"
-    attrValueProcessor: (val: any, attrName: string) =>
-      he.decode(val, { isAttributeValue: true }), //default is a=>a
-    tagValueProcessor: (val: any, tagName: string) => he.decode(val), //default is a=>a
+    attrValueProcessor: (val: any) =>
+      he.decode(val, { isAttributeValue: true }),
+    tagValueProcessor: (val: any) => he.decode(val),
     stopNodes: ["parse-me-as-string"]
   };
   const xml = parse(await response.text(), options);
-  console.log(JSON.stringify({ xml, rss: new RSS(xml) }));
+  console.log(
+    JSON.stringify({ item: xml.rss.channel.item.pop(), rss: new RSS(xml) })
+  );
 };

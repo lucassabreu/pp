@@ -1,6 +1,5 @@
-interface XmlCDATA {
-  __cdata?: string;
-}
+import extractText from "./extractText";
+import XmlTextNode from "./XmlTextNode";
 
 interface XmlEnclosure {
   attr: {
@@ -10,20 +9,17 @@ interface XmlEnclosure {
 }
 
 interface XmlItem {
-  guid?: { ["#text"]: string } | string;
-  title?: string;
-  pubDate: string;
+  guid?: XmlTextNode | string;
+  title?: XmlTextNode | string;
+  pubDate: XmlTextNode | string;
   enclosure?: XmlEnclosure;
-  description?: XmlCDATA | string | null;
-  ["content:encoded"]?: XmlCDATA | string | null;
-  link?: string;
-  ["itunes:duration"]: string | null;
+  description?: XmlTextNode | string | null;
+  ["content:encoded"]?: XmlTextNode | string | null;
+  link?: XmlTextNode | string;
+  ["itunes:duration"]: XmlTextNode | string | null;
 }
 
 export { XmlItem };
-
-const extractCDATA = (node: XmlCDATA | string | null): string =>
-  typeof node == "object" ? (node || {}).__cdata || "" : node || "";
 
 class Item {
   public guid: string;
@@ -36,24 +32,17 @@ class Item {
   public audioType: null | string;
 
   constructor(item: XmlItem) {
-    this.link = item.link || "";
-    this.title = item.title || this.link;
+    this.link = extractText(item.link || null);
+    this.title = extractText(item.title || null) || this.link;
 
-    const guid =
-      typeof item.guid == "string"
-        ? item.guid
-        : item.guid
-        ? item.guid["#text"]
-        : "";
-
-    this.guid = guid || this.link || this.title;
+    this.guid = extractText(item.guid || null) || this.link || this.title;
     this.description =
-      extractCDATA(item["content:encoded"] || null) ||
-      extractCDATA(item.description || null);
+      extractText(item["content:encoded"] || null) ||
+      extractText(item.description || null);
 
     this.pubDate = new Date();
-    this.pubDate.setTime(Date.parse(item.pubDate));
-    this.duration = item["itunes:duration"] || null;
+    this.pubDate.setTime(Date.parse(extractText(item.pubDate)));
+    this.duration = extractText(item["itunes:duration"] || null);
 
     if (!item.enclosure) {
       this.audioUrl = null;

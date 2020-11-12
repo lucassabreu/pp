@@ -35,7 +35,7 @@ class RSS {
     this.image = (channel.image || {}).url || "";
     this.items = (channel.item || [])
       .map((i: XmlItem) => new Item(i))
-      .sort((a: Item, b: Item) => (a.pubDate < b.pubDate ? -1 : 1));
+      .sort((a: Item, b: Item) => (a.pubDate < b.pubDate ? 1 : -1));
   }
 }
 
